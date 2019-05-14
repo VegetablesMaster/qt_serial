@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>454</width>
-    <height>402</height>
+    <width>632</width>
+    <height>565</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
         <item>
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>发送窗口</string>
+           <string>单次数据</string>
           </property>
          </widget>
         </item>
@@ -51,7 +51,7 @@
           <item>
            <widget class="QPushButton" name="sendButton">
             <property name="text">
-             <string>发送数据</string>
+             <string>写入到库</string>
             </property>
            </widget>
           </item>
@@ -208,6 +208,13 @@
          </spacer>
         </item>
         <item>
+         <widget class="QPushButton" name="sqlselectButton">
+          <property name="text">
+           <string>数据库测试</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="openButton">
           <property name="text">
            <string>打开串口</string>
@@ -225,8 +232,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>454</width>
-     <height>23</height>
+     <width>632</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>

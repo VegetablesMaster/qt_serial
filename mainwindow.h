@@ -5,6 +5,8 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 
+#include "sql.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -28,9 +30,12 @@ private slots:
 
     void on_clearButton_clicked();
 
+    void on_sqlselectButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSerialPort serial;
+    Mysql mysql_db;
 };
 
 #endif // MAINWINDOW_H

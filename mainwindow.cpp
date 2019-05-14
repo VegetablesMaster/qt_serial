@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //发送按键失能
     ui->sendButton->setEnabled(false);
     //波特率默认选择下拉第三项：9600
-    ui->baudrateBox->setCurrentIndex(3);
+    ui->baudrateBox->setCurrentIndex(4);
 }
 
 MainWindow::~MainWindow()
@@ -33,6 +33,19 @@ void MainWindow::serialPort_readyRead()
     ui->recvTextEdit->clear();
     //重新显示
     ui->recvTextEdit->append(recv);
+
+    //显示单次的数据
+    QStringList sl =QString(buffer).split(" ");
+    recv = ui->sendTextEdit->toPlainText();
+    if (sl.at(0) == QString("55")&&sl.at(1) == QString("DD")){
+        recv = QString(buffer);
+    }
+    else {
+        recv += QString(buffer);
+    }
+    ui->sendTextEdit->clear();
+    ui->sendTextEdit->append(recv);
+    data_process(recv);
 }
 
 
@@ -121,4 +134,10 @@ void MainWindow::on_sendButton_clicked()
 void MainWindow::on_clearButton_clicked()
 {
     ui->recvTextEdit->clear();
+
+}
+
+void MainWindow::on_sqlselectButton_clicked()
+{
+    mysql_db.get_data();
 }
