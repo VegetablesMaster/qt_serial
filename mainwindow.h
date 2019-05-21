@@ -21,6 +21,8 @@ public:
 
 private slots:
     void serialPort_readyRead();
+    void serialPort_readyRead2();
+    void serialPort_readyRead3();
 
     void on_searchButton_clicked();
 
@@ -32,9 +34,17 @@ private slots:
 
     void on_sqlselectButton_clicked();
 
+    void on_SerialButton_1_clicked();
+
+    void on_SerialButton_2_clicked();
+
+    void on_SerialButton_3_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSerialPort serial;
+    QSerialPort serial2;
+    QSerialPort serial3;
     Mysql mysql_db;
 };
 
