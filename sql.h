@@ -13,7 +13,8 @@ public:
     void get_data(void);
 };
 
-void data_process(QString data_str);
+void data_process(QString data_str,int& point_x, int& point_y);
+void data_process(QString data_str,int& point_x, int& point_y, QString& string);
 
 int hex2(unsigned char ch);
 QString hexToDec(QString strHex);

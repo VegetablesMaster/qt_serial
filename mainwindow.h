@@ -4,12 +4,21 @@
 #include <QMainWindow>
 #include <QSerialPort>
 #include <QSerialPortInfo>
+#include <QPainter>
+#include <QGraphicsView>
 
+#include "constants.h"
 #include "sql.h"
+#include "painter.h"
+
+class QGraphicsScene;
+class QGraphicsView;
 
 namespace Ui {
 class MainWindow;
+
 }
+
 
 class MainWindow : public QMainWindow
 {
@@ -18,6 +27,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
 
 private slots:
     void serialPort_readyRead();
@@ -40,8 +50,13 @@ private slots:
 
     void on_SerialButton_3_clicked();
 
+    void serial_set_enable(bool flag);
+
+    void draw_envent();
+
 private:
     Ui::MainWindow *ui;
+    QGraphicsScene *scene;
     QSerialPort serial;
     QSerialPort serial2;
     QSerialPort serial3;

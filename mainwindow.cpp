@@ -1,11 +1,18 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "constants.h"
+
+#include <qmenubar.h>
+#include <qapplication.h>
 #include <QMessageBox>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    scene(new QGraphicsScene(this))
 {
+
     ui->setupUi(this);
 
     //连接信号和槽
@@ -18,6 +25,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->sendButton->setEnabled(false);
     //波特率默认选择下拉第三项：9600
     ui->baudrateBox->setCurrentIndex(4);
+
+    scene->setSceneRect(-200, -300, 400, 500);  //初始化坐标轴
+    QPixmap bg(TILE_SIZE, TILE_SIZE);
+    QPainter p(&bg);
+    p.setBrush(QBrush(Qt::gray));
+    p.drawRect(0, 0, TILE_SIZE, TILE_SIZE);
+
+    scene->addText("Hello, world!");
+
+    ui->graphicsView->setBackgroundBrush(QBrush(bg));
+    ui->graphicsView->setScene(scene);
+
 }
 
 MainWindow::~MainWindow()
@@ -27,6 +46,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::serialPort_readyRead()
 {
+    if (ui->SerialButton_1->isEnabled())
+    {
+       return;
+    }
     //从接收缓冲区中读取数据
     QByteArray buffer = serial.readAll();
     //从界面中读取以前收到的数据
@@ -48,11 +71,26 @@ void MainWindow::serialPort_readyRead()
     }
     ui->sendTextEdit->clear();
     ui->sendTextEdit->append(recv);
-    data_process(recv);
+
+    int x,y;
+    QString string;
+    scene->clear();
+    data_process(recv,x,y,string);
+    Point *a1 = new Point(x,y);
+    scene->addItem(a1);
+
+    QGraphicsTextItem* b1 = scene->addText(string,QFont());
+
+
+
 }
 
 void MainWindow::serialPort_readyRead2()
 {
+    if (ui->SerialButton_2->isEnabled())
+    {
+       return;
+    }
     //从接收缓冲区中读取数据
     QByteArray buffer = serial.readAll();
     //从界面中读取以前收到的数据
@@ -74,11 +112,14 @@ void MainWindow::serialPort_readyRead2()
     }
     ui->sendTextEdit->clear();
     ui->sendTextEdit->append(recv);
-    data_process(recv);
 }
 
 void MainWindow::serialPort_readyRead3()
 {
+    if (ui->SerialButton_3->isEnabled())
+    {
+       return;
+    }
     //从接收缓冲区中读取数据
     QByteArray buffer = serial.readAll();
     //从界面中读取以前收到的数据
@@ -100,7 +141,6 @@ void MainWindow::serialPort_readyRead3()
     }
     ui->sendTextEdit->clear();
     ui->sendTextEdit->append(recv);
-    data_process(recv);
 }
 
 void MainWindow::on_searchButton_clicked()
@@ -151,31 +191,18 @@ void MainWindow::on_openButton_clicked()
                 return;
             }
             //下拉菜单控件失能
-            ui->portNameBox->setEnabled(false);
-            ui->baudrateBox->setEnabled(false);
-            ui->dataBitsBox->setEnabled(false);
-            ui->ParityBox->setEnabled(false);
-            ui->stopBitsBox->setEnabled(false);
-
+            this->serial_set_enable(false);
             ui->openButton->setText(QString("关闭串口1"));
             //发送按键使能
-            ui->sendButton->setEnabled(true);
+
         }
         else
         {
             //关闭串口
             serial.close();
-
             //下拉菜单控件使能
-            ui->portNameBox->setEnabled(true);
-            ui->baudrateBox->setEnabled(true);
-            ui->dataBitsBox->setEnabled(true);
-            ui->ParityBox->setEnabled(true);
-            ui->stopBitsBox->setEnabled(true);
-
+            this->serial_set_enable(true);
             ui->openButton->setText(QString("打开串口1"));
-            //发送按键失能
-            ui->sendButton->setEnabled(false);
         }
     }
     else if (!ui->SerialButton_2->isEnabled()) {
@@ -213,34 +240,19 @@ void MainWindow::on_openButton_clicked()
                 qDebug()<<"提示,无法打开串口2！";
                 return;
             }
-            //下拉菜单控件失能
-            ui->portNameBox->setEnabled(false);
-            ui->baudrateBox->setEnabled(false);
-            ui->dataBitsBox->setEnabled(false);
-            ui->ParityBox->setEnabled(false);
-            ui->stopBitsBox->setEnabled(false);
-
             ui->openButton->setText(QString("关闭串口2"));
-            //发送按键使能
-            ui->sendButton->setEnabled(true);
+            //下拉菜单控件失能
+            this->serial_set_enable(false);
         }
         else
         {
             //关闭串口
             serial2.close();
-            //下拉菜单控件使能
-            ui->portNameBox->setEnabled(true);
-            ui->baudrateBox->setEnabled(true);
-            ui->dataBitsBox->setEnabled(true);
-            ui->ParityBox->setEnabled(true);
-            ui->stopBitsBox->setEnabled(true);
-
             ui->openButton->setText(QString("打开串口2"));
-            //发送按键失能
-            ui->sendButton->setEnabled(false);
+            this->serial_set_enable(true);
         }
     }
-    else if (ui->SerialButton_3->isEnabled()) {
+    else if (!ui->SerialButton_3->isEnabled()) {
 
     }
 
@@ -264,6 +276,17 @@ void MainWindow::on_sqlselectButton_clicked()
     mysql_db.get_data();
 }
 
+void MainWindow::serial_set_enable(bool flag){
+    //下拉菜单控件使能
+    ui->portNameBox->setEnabled(flag);
+    ui->baudrateBox->setEnabled(flag);
+    ui->dataBitsBox->setEnabled(flag);
+    ui->ParityBox->setEnabled(flag);
+    ui->stopBitsBox->setEnabled(flag);
+    //发送按键失能
+    ui->sendButton->setEnabled(!flag);
+}
+
 void MainWindow::on_SerialButton_1_clicked()
 {
     ui->SerialButton_1->setEnabled(false);
@@ -271,22 +294,28 @@ void MainWindow::on_SerialButton_1_clicked()
     ui->SerialButton_3->setEnabled(true);
     if(serial.isOpen()){
         ui->openButton->setText(QString("关闭串口1"));
+        this->serial_set_enable(false);
     }
     else {
         ui->openButton->setText(QString("打开串口1"));
+        this->serial_set_enable(true);
     }
 }
 
 void MainWindow::on_SerialButton_2_clicked()
 {
+
+    this->draw_envent();
     ui->SerialButton_1->setEnabled(true);
     ui->SerialButton_2->setEnabled(false);
     ui->SerialButton_3->setEnabled(true);
     if(serial2.isOpen()){
         ui->openButton->setText(QString("关闭串口2"));
+        this->serial_set_enable(false);
     }
     else {
         ui->openButton->setText(QString("打开串口2"));
+        this->serial_set_enable(true);
     }
 }
 
@@ -297,8 +326,20 @@ void MainWindow::on_SerialButton_3_clicked()
     ui->SerialButton_3->setEnabled(false);
     if(serial3.isOpen()){
         ui->openButton->setText(QString("关闭串口3"));
+        this->serial_set_enable(false);
     }
     else {
         ui->openButton->setText(QString("打开串口3"));
+        this->serial_set_enable(true);
     }
+}
+
+void MainWindow::draw_envent(){
+    QPainter painter(ui->graphicsView);
+    painter.drawLine(80, 100, 650, 500);
+    painter.setPen(Qt::red);
+    painter.drawRect(10, 10, 100, 400);
+    painter.setPen(QPen(Qt::green, 5));
+    painter.setBrush(Qt::blue);
+    painter.drawEllipse(50, 150, 400, 200);
 }

@@ -27,26 +27,26 @@ void Mysql::get_data(void){
     }
 };
 
-void data_process(QString data_str){
+void data_process(QString data_str,int& point_x, int& point_y){
     QString people_1 = " ";
     QString people_2 = " ";
     QString people_3 = " ";
     QStringList sl =QString(data_str).split(" ");
     int people_num = sl.at(4).toInt();
     qDebug()<<"x:"+hexToDec(sl.at(6))+'.'+hexToDec(sl.at(7))+" y:"+hexToDec(sl.at(8))+'.'+hexToDec(sl.at(9));
-//    switch(people_num)
-//    {
-//        case 03:
-//             people_3 = "x:"+sl.at(14)+'.'+sl.at(15)+" y:"+sl.at(16)+'.'+sl.at(17);
-//        case 02:
-//             people_2 = "x:"+sl.at(10)+'.'+sl.at(11)+" y:"+sl.at(16)+'.'+sl.at(17);
-//        case 01:
-//             people_1 = "x:"+sl.at(6)+'.'+sl.at(7)+" y:"+sl.at(8)+'.'+sl.at(9);
-//        break;
-//    }
-//    qDebug()<<people_1;
-//    qDebug()<<people_2;
-//    qDebug()<<people_3;
+    point_x = hexToDec(sl.at(6)).toInt();
+    point_y = hexToDec(sl.at(8)).toInt();
+};
+
+void data_process(QString data_str,int& point_x, int& point_y, QString& string){
+
+    QStringList sl =QString(data_str).split(" ");
+    int people_num = sl.at(4).toInt();
+    QString temp = "people num: " + people_num;
+    string = "x:"+hexToDec(sl.at(6))+'.'+hexToDec(sl.at(7))+" y:"+hexToDec(sl.at(8))+'.'+hexToDec(sl.at(9));
+    qDebug()<<string;
+    point_x = hexToDec(sl.at(6)).toInt();
+    point_y = hexToDec(sl.at(8)).toInt();
 };
 
 int hex2(unsigned char ch){          //十六进制转换工具

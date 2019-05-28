@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="config">jpg/db_init_config.jpg</file>
+    </qresource>
+</RCC>

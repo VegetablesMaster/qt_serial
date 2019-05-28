@@ -27,10 +27,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
+        painter.cpp \
         sql.cpp
 
 HEADERS += \
+        constants.h \
         mainwindow.h \
+        painter.h \
         sql.h
 
 FORMS += \
@@ -38,3 +41,6 @@ FORMS += \
 
 DISTFILES += \
     TestForm.ui.qml
+
+RESOURCES += \
+    res.qrc
