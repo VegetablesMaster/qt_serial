@@ -10,7 +10,14 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    scene(new QGraphicsScene(this))
+    scene(new QGraphicsScene(this)),
+
+    timerNo1(new QTimer(this)),
+    timerNo2(new QTimer(this)),
+    timerNo3(new QTimer(this)),
+    timerNo4(new QTimer(this)),
+    timerNo5(new QTimer(this)),
+    timerNo6(new QTimer(this))
 {
 
     ui->setupUi(this);
@@ -19,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(&serial, &QSerialPort::readyRead, this, &MainWindow::serialPort_readyRead);
     QObject::connect(&serial2, &QSerialPort::readyRead, this, &MainWindow::serialPort_readyRead2);
     QObject::connect(&serial3, &QSerialPort::readyRead, this, &MainWindow::serialPort_readyRead3);
+    QTimer::connect(timerNo1, SIGNAL(timeout()), this, SLOT(timer1_ready()));
 
     this->on_SerialButton_1_clicked();
     //发送按键失能
@@ -31,8 +39,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QPainter p(&bg);
     p.setBrush(QBrush(Qt::gray));
     p.drawRect(0, 0, TILE_SIZE, TILE_SIZE);
-
-    scene->addText("Hello, world!");
 
     ui->graphicsView->setBackgroundBrush(QBrush(bg));
     ui->graphicsView->setScene(scene);
@@ -52,37 +58,7 @@ void MainWindow::serialPort_readyRead()
     }
     //从接收缓冲区中读取数据
     QByteArray buffer = serial.readAll();
-    //从界面中读取以前收到的数据
-    QString recv = ui->recvTextEdit->toPlainText();
-    recv += QString(buffer);
-    //清空以前的显示
-    ui->recvTextEdit->clear();
-    //重新显示
-    ui->recvTextEdit->append(recv);
-
-    //显示单次的数据
-    QStringList sl =QString(buffer).split(" ");
-    recv = ui->sendTextEdit->toPlainText();
-    if (sl.at(0) == QString("55")&&sl.at(1) == QString("DD")){
-        recv = QString(buffer);
-    }
-    else {
-        recv += QString(buffer);
-    }
-    ui->sendTextEdit->clear();
-    ui->sendTextEdit->append(recv);
-
-    int x,y;
-    QString string;
-    scene->clear();
-    data_process(recv,x,y,string);
-    Point *a1 = new Point(x,y);
-    scene->addItem(a1);
-
-    QGraphicsTextItem* b1 = scene->addText(string,QFont());
-
-
-
+    process_serial_data(buffer);
 }
 
 void MainWindow::serialPort_readyRead2()
@@ -93,25 +69,8 @@ void MainWindow::serialPort_readyRead2()
     }
     //从接收缓冲区中读取数据
     QByteArray buffer = serial.readAll();
-    //从界面中读取以前收到的数据
-    QString recv = ui->recvTextEdit->toPlainText();
-    recv += QString(buffer);
-    //清空以前的显示
-    ui->recvTextEdit->clear();
-    //重新显示
-    ui->recvTextEdit->append(recv);
+    process_serial_data(buffer);
 
-    //显示单次的数据
-    QStringList sl =QString(buffer).split(" ");
-    recv = ui->sendTextEdit->toPlainText();
-    if (sl.at(0) == QString("55")&&sl.at(1) == QString("DD")){
-        recv = QString(buffer);
-    }
-    else {
-        recv += QString(buffer);
-    }
-    ui->sendTextEdit->clear();
-    ui->sendTextEdit->append(recv);
 }
 
 void MainWindow::serialPort_readyRead3()
@@ -122,6 +81,11 @@ void MainWindow::serialPort_readyRead3()
     }
     //从接收缓冲区中读取数据
     QByteArray buffer = serial.readAll();
+    process_serial_data(buffer);
+}
+
+void MainWindow::process_serial_data(QByteArray buffer)
+{
     //从界面中读取以前收到的数据
     QString recv = ui->recvTextEdit->toPlainText();
     recv += QString(buffer);
@@ -129,19 +93,36 @@ void MainWindow::serialPort_readyRead3()
     ui->recvTextEdit->clear();
     //重新显示
     ui->recvTextEdit->append(recv);
-
     //显示单次的数据
     QStringList sl =QString(buffer).split(" ");
-    recv = ui->sendTextEdit->toPlainText();
+    recv = ui->singledateEdit->toPlainText();
     if (sl.at(0) == QString("55")&&sl.at(1) == QString("DD")){
         recv = QString(buffer);
     }
     else {
         recv += QString(buffer);
     }
-    ui->sendTextEdit->clear();
-    ui->sendTextEdit->append(recv);
+    ui->singledateEdit->clear();
+    ui->singledateEdit->append(recv);
+
+    int x,y;
+    QString string;
+    scene->clear();
+    data_process(recv,x,y,string);
+    Point *a1 = new Point(x,y);
+    scene->addItem(a1);
+
+    //QGraphicsTextItem* b1 = scene->addText(string,QFont());
 }
+void MainWindow::timer1_ready(){
+    qDebug()<<"timer1 recall";
+    QString send_order;
+    if(generateorder_Read_mater(config_json[json_ID_list[0]].toString(),send_order)==0){
+       send_data(send_order);
+    }else {
+        qDebug()<<"timer1 send error";
+    }
+};
 
 void MainWindow::on_searchButton_clicked()
 {
@@ -265,6 +246,11 @@ void MainWindow::on_sendButton_clicked()
     serial.write(data);
 }
 
+void MainWindow::send_data(QString data)
+{
+    serial.write(data.toUtf8());
+}
+
 void MainWindow::on_clearButton_clicked()
 {
     ui->recvTextEdit->clear();
@@ -343,3 +329,43 @@ void MainWindow::draw_envent(){
     painter.setBrush(Qt::blue);
     painter.drawEllipse(50, 150, 400, 200);
 }
+
+void MainWindow::on_actionNo_1_triggered()
+{
+    setlocate= new SetLocate(this);
+
+    connect(this,SIGNAL(read_config(QJsonObject)),setlocate,SLOT(set_location_data(QJsonObject)));
+    connect(setlocate,SIGNAL(send_location_data(QJsonObject)),this,SLOT(set_config(QJsonObject)));
+    emit read_config(config_json);
+    setlocate->setModal(false);
+    setlocate->show();
+}
+
+void MainWindow::on_action_Id_Timer_triggered()
+{
+    idtimer= new IdTimer(this);
+    connect(this,SIGNAL(read_config(QJsonObject)),idtimer,SLOT(set_location_data(QJsonObject)));
+    connect(idtimer,SIGNAL(send_location_data(QJsonObject)),this,SLOT(set_config(QJsonObject)));
+    emit read_config(config_json);
+    idtimer->setModal(false);
+    idtimer->show();
+}
+void MainWindow::set_config(QJsonObject json){
+    config_json = json;
+//    qDebug()<<"No1_X:"<<config_json["No1_X"]<<"No1_Y:"<<config_json["No1_Y"];
+//    qDebug()<<"No2_X:"<<config_json["No1_X"]<<"No2_Y:"<<config_json["No1_Y"];
+//    qDebug()<<"No3_X:"<<config_json["No1_X"]<<"No3_Y:"<<config_json["No1_Y"];
+//    qDebug()<<"No4_X:"<<config_json["No1_X"]<<"No4_Y:"<<config_json["No1_Y"];
+//    qDebug()<<"No5_X:"<<config_json["No1_X"]<<"No5_Y:"<<config_json["No1_Y"];
+//    qDebug()<<"No6_X:"<<config_json["No1_X"]<<"No6_Y:"<<config_json["No1_Y"];
+    for(int i = 0; i < int(timerlist.size()); i++){
+        if(timerlist[i]->isActive()){
+            timerlist[i]->stop();
+        }
+        if (config_json[json_enable_list[i]] == true){
+            timerNo1->start(config_json[json_Timer_list[i]].toInt());
+        }
+    }
+}
+
+

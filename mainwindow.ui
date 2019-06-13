@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>三思-毫米波雷达展示程序</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -37,7 +37,27 @@
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="sendTextEdit"/>
+         <widget class="QTextEdit" name="singledateEdit"/>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string>发送数据</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="sendTextEdit">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>151</height>
+           </size>
+          </property>
+         </widget>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
@@ -58,7 +78,7 @@
           <item>
            <widget class="QPushButton" name="sendButton">
             <property name="text">
-             <string>写入到库</string>
+             <string>发送数据</string>
             </property>
            </widget>
           </item>
@@ -277,6 +297,14 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>设置</string>
+    </property>
+    <addaction name="actionNo_1"/>
+    <addaction name="action_Id_Timer"/>
+   </widget>
+   <addaction name="menu"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -287,6 +315,16 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionNo_1">
+   <property name="text">
+    <string>设置雷达坐标</string>
+   </property>
+  </action>
+  <action name="action_Id_Timer">
+   <property name="text">
+    <string>设置Id和Timer</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

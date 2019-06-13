@@ -3,12 +3,7 @@
 
 #include "constants.h"
 
-#include<QPainter>
-#include<QPainterPath>
-#include<QPointF>
-#include <QGraphicsItem>
 
-#include <QGraphicsItem>
 
 class Point : public QGraphicsItem
 {

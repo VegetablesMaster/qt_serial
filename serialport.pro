@@ -25,19 +25,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+        idtimer.cpp \
         main.cpp \
         mainwindow.cpp \
         painter.cpp \
+        setlocate.cpp \
         sql.cpp
 
 HEADERS += \
         constants.h \
+        idtimer.h \
         mainwindow.h \
         painter.h \
+        setlocate.h \
         sql.h
 
 FORMS += \
-        mainwindow.ui
+        idtimer.ui \
+        mainwindow.ui \
+        setlocate.ui
 
 DISTFILES += \
     TestForm.ui.qml

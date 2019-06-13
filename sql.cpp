@@ -32,17 +32,13 @@ void data_process(QString data_str,int& point_x, int& point_y){
     QString people_2 = " ";
     QString people_3 = " ";
     QStringList sl =QString(data_str).split(" ");
-    int people_num = sl.at(4).toInt();
     qDebug()<<"x:"+hexToDec(sl.at(6))+'.'+hexToDec(sl.at(7))+" y:"+hexToDec(sl.at(8))+'.'+hexToDec(sl.at(9));
     point_x = hexToDec(sl.at(6)).toInt();
     point_y = hexToDec(sl.at(8)).toInt();
 };
 
 void data_process(QString data_str,int& point_x, int& point_y, QString& string){
-
     QStringList sl =QString(data_str).split(" ");
-    int people_num = sl.at(4).toInt();
-    QString temp = "people num: " + people_num;
     string = "x:"+hexToDec(sl.at(6))+'.'+hexToDec(sl.at(7))+" y:"+hexToDec(sl.at(8))+'.'+hexToDec(sl.at(9));
     qDebug()<<string;
     point_x = hexToDec(sl.at(6)).toInt();
@@ -68,4 +64,52 @@ QString hexToDec(QString strHex){  //十六进制转十进制
         v+=hex2(strHex[i].toLatin1());
     }
     return QString::number(v);
+};
+
+int generateorder_Online_mater(QString radar_addr, QString& order){
+    order = Instruct_Frame_Start + Instruct_MasterPc_Addr;
+    order = order + radar_addr + Instruct_Online_Mater;
+    QString Frame_Lengh = "07 ";
+    QString CRC = "00 ";
+    order = order + Frame_Lengh + CRC + Instruct_Frame_End;
+    return 0;
+};
+
+int generateorder_Read_mater(QString radar_addr, QString& order){
+    order = Instruct_Frame_Start + Instruct_MasterPc_Addr;
+    order = order + radar_addr + Instruct_Get_Data_Mater;
+    QString Frame_Lengh = "07 ";
+    QString CRC = "00 ";
+    order = order + Frame_Lengh + CRC + Instruct_Frame_End;
+    return 0;
+};
+
+int resolveorder_Online_radar(QString data_str, QJsonObject& json){
+    QStringList sl =QString(data_str).split(" ");
+    json.insert("radar_addr", sl.at(3));
+    return 0;
+};
+
+int resolveorder_Read_radar(QString data_str,  QJsonObject& json){
+    QStringList sl =QString(data_str).split(" ");
+    json.insert("radar_addr", sl.at(3));
+    //解析人数
+    int frame_length = hexToDec(sl.at(4)).toInt();
+    int data_length = frame_length - 7;
+    if(data_length%4 == 0){
+        // 接收到的数据有错误
+        return 1;
+    }
+    int people_count = data_length/4;
+    json.insert("people_count", people_count);
+    //解析人的位置
+    for(int i=0;i<people_count;i++)
+    {
+        int j = 6+i*4;
+        float x=(hexToDec(sl.at(j))+'.'+hexToDec(sl.at(j+1))).toFloat();
+        float y=(hexToDec(sl.at(j+2))+'.'+hexToDec(sl.at(j+3))).toFloat();
+        float location[2] = {x,y};
+        QString people_id = "people_no";
+    }
+    return 0;
 };
