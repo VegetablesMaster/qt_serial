@@ -35,9 +35,11 @@ artifacts:
     name: $(releaseName)
 deploy:
   provider: GitHub
-  auth_token: 3ebc11fca7214a31e4f8f8f3704a863aa34473e0
-  description: 'HelloCI Release'
+  auth_token: 
+      secure:3ebc11fca7214a31e4f8f8f3704a863aa34473e0
+  description: 'radar serial Release'
   draft: false
   prerelease: false
   on:
+      branch: master
       APPVEYOR_REPO_TAG: true
