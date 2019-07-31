@@ -29,9 +29,9 @@ build_script:
   - qmake
   - nmake
 after_build:
-  - windeployqt bin\serialport.exe --qmldir %QTDIR%\qml
+  - windeployqt release\serialport.exe --qmldir %QTDIR%\qml
 artifacts:
-  - path: bin
+  - path: release
     name: $(releaseName)
 deploy:
   provider: GitHub
