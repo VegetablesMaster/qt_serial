@@ -33,12 +33,3 @@ after_build:
 artifacts:
   - path: release
     name: $(releaseName)
-deploy:
-  provider: GitHub
-  auth_token: 
-      secure:3ebc11fca7214a31e4f8f8f3704a863aa34473e0
-  description: 'radar serial Release'
-  draft: false
-  prerelease: false
-  on:
-      branch: master
