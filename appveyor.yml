@@ -35,7 +35,7 @@ artifacts:
     name: $(releaseName)
 deploy:
   provider: GitHub
-  auth_token: $(GITHUB_OAUTH_TOKEN)
+  auth_token: 3ebc11fca7214a31e4f8f8f3704a863aa34473e0
   description: 'HelloCI Release'
   draft: false
   prerelease: false
