@@ -6,34 +6,71 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>575</width>
-    <height>371</height>
+    <width>621</width>
+    <height>410</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>设置ID和定时器</string>
   </property>
-  <widget class="QCheckBox" name="checkBox_1">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>80</y>
-     <width>81</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
+  <property name="styleSheet">
+   <string notr="true">QDialog {    
+	background: white url(:/images/jpg/sansi_logo.jpg);
+    background-repeat: repeat-y;
+    background-position: left;
+}
+
+QLineEdit { 
+	min-width:68px;
+    min-height:28px;
+	background-color: rgb(170, 255, 255);
+	border-color: rgb(22, 83, 150);
+	border: 2px solid rgba(0, 127, 255, 100);
+	font: 14pt &quot;Myanmar Text&quot;;
+	
+}
+QFrame {	
+	background-color: rgba(0, 75, 125, 50);
+}
+
+QLabel{
+	
+
+	min-width:68px;
+    min-height:28px;
+
+    max-height:28px;
+
+	border: 2px solid white;
+	border-radius: 4px;
+	
+	
+	font: 75 14pt &quot;Microsoft JhengHei UI&quot;;
+	text-align: center;
+}
+
+QCheckBox{
+  	max-height:14px;
+}
+
+QPushButton{
+	background-color: rgb(255, 255, 255);
+    min-width:220px;
+    min-height:28px;
+	border-radius: 10px;
+}</string>
+  </property>
   <widget class="QLineEdit" name="lineEdit_1">
    <property name="geometry">
     <rect>
      <x>240</x>
      <y>80</y>
      <width>111</width>
-     <height>21</height>
+     <height>32</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>IBeamCursor</cursorShape>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_2">
@@ -41,8 +78,8 @@
     <rect>
      <x>400</x>
      <y>80</y>
-     <width>113</width>
-     <height>20</height>
+     <width>111</width>
+     <height>32</height>
     </rect>
    </property>
   </widget>
@@ -51,12 +88,15 @@
     <rect>
      <x>60</x>
      <y>80</y>
-     <width>61</width>
-     <height>21</height>
+     <width>72</width>
+     <height>32</height>
     </rect>
    </property>
    <property name="text">
     <string>No.1</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_3">
@@ -64,8 +104,8 @@
     <rect>
      <x>240</x>
      <y>120</y>
-     <width>113</width>
-     <height>20</height>
+     <width>111</width>
+     <height>32</height>
     </rect>
    </property>
   </widget>
@@ -75,21 +115,8 @@
      <x>400</x>
      <y>120</y>
      <width>111</width>
-     <height>21</height>
+     <height>32</height>
     </rect>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBox_2">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>120</y>
-     <width>81</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -97,12 +124,15 @@
     <rect>
      <x>60</x>
      <y>120</y>
-     <width>61</width>
-     <height>21</height>
+     <width>72</width>
+     <height>32</height>
     </rect>
    </property>
    <property name="text">
     <string>No.2</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_5">
@@ -110,8 +140,8 @@
     <rect>
      <x>240</x>
      <y>160</y>
-     <width>113</width>
-     <height>20</height>
+     <width>111</width>
+     <height>32</height>
     </rect>
    </property>
   </widget>
@@ -121,21 +151,8 @@
      <x>400</x>
      <y>160</y>
      <width>111</width>
-     <height>21</height>
+     <height>32</height>
     </rect>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBox_3">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>160</y>
-     <width>81</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
@@ -143,12 +160,15 @@
     <rect>
      <x>60</x>
      <y>160</y>
-     <width>61</width>
-     <height>21</height>
+     <width>72</width>
+     <height>32</height>
     </rect>
    </property>
    <property name="text">
     <string>No.3</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_7">
@@ -156,8 +176,8 @@
     <rect>
      <x>240</x>
      <y>200</y>
-     <width>113</width>
-     <height>20</height>
+     <width>111</width>
+     <height>32</height>
     </rect>
    </property>
   </widget>
@@ -167,21 +187,8 @@
      <x>400</x>
      <y>200</y>
      <width>111</width>
-     <height>21</height>
+     <height>32</height>
     </rect>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBox_4">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>200</y>
-     <width>81</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
@@ -189,12 +196,15 @@
     <rect>
      <x>60</x>
      <y>200</y>
-     <width>61</width>
-     <height>21</height>
+     <width>72</width>
+     <height>32</height>
     </rect>
    </property>
    <property name="text">
     <string>No.4</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_9">
@@ -202,8 +212,8 @@
     <rect>
      <x>240</x>
      <y>240</y>
-     <width>113</width>
-     <height>20</height>
+     <width>111</width>
+     <height>32</height>
     </rect>
    </property>
   </widget>
@@ -213,21 +223,8 @@
      <x>400</x>
      <y>240</y>
      <width>111</width>
-     <height>21</height>
+     <height>32</height>
     </rect>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBox_5">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>240</y>
-     <width>81</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="label_5">
@@ -235,12 +232,15 @@
     <rect>
      <x>60</x>
      <y>240</y>
-     <width>61</width>
-     <height>21</height>
+     <width>72</width>
+     <height>32</height>
     </rect>
    </property>
    <property name="text">
     <string>No.5</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_11">
@@ -248,8 +248,8 @@
     <rect>
      <x>240</x>
      <y>280</y>
-     <width>113</width>
-     <height>20</height>
+     <width>111</width>
+     <height>32</height>
     </rect>
    </property>
   </widget>
@@ -259,21 +259,8 @@
      <x>400</x>
      <y>280</y>
      <width>111</width>
-     <height>21</height>
+     <height>32</height>
     </rect>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBox_6">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>280</y>
-     <width>81</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="label_6">
@@ -281,38 +268,15 @@
     <rect>
      <x>60</x>
      <y>280</y>
-     <width>61</width>
-     <height>21</height>
+     <width>72</width>
+     <height>32</height>
     </rect>
    </property>
    <property name="text">
     <string>No.6</string>
    </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>330</y>
-     <width>101</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>设置</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>350</x>
-     <y>330</y>
-     <width>101</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>退出</string>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QLabel" name="label_7">
@@ -320,40 +284,196 @@
     <rect>
      <x>260</x>
      <y>30</y>
-     <width>91</width>
-     <height>41</height>
+     <width>72</width>
+     <height>32</height>
     </rect>
    </property>
    <property name="text">
     <string>ID地址</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
      <x>400</x>
-     <y>20</y>
-     <width>111</width>
-     <height>51</height>
+     <y>30</y>
+     <width>131</width>
+     <height>32</height>
     </rect>
    </property>
    <property name="text">
     <string>信息读取间隔</string>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
   </widget>
-  <widget class="QLabel" name="label_9">
+  <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>40</y>
-     <width>61</width>
-     <height>31</height>
+     <x>30</x>
+     <y>20</y>
+     <width>561</width>
+     <height>361</height>
     </rect>
    </property>
-   <property name="text">
-    <string>使能</string>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
    </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>10</y>
+      <width>72</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>使能</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_6">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>270</y>
+      <width>81</width>
+      <height>14</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_5">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>230</y>
+      <width>81</width>
+      <height>14</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_4">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>190</y>
+      <width>81</width>
+      <height>14</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_1">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>70</y>
+      <width>81</width>
+      <height>14</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_2">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>110</y>
+      <width>31</width>
+      <height>14</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>16</width>
+      <height>16</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_3">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>150</y>
+      <width>81</width>
+      <height>14</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>310</y>
+      <width>220</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>设置</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>310</y>
+      <width>220</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>退出</string>
+    </property>
+   </widget>
   </widget>
+  <zorder>frame</zorder>
+  <zorder>lineEdit_1</zorder>
+  <zorder>lineEdit_2</zorder>
+  <zorder>label</zorder>
+  <zorder>lineEdit_3</zorder>
+  <zorder>lineEdit_4</zorder>
+  <zorder>label_2</zorder>
+  <zorder>lineEdit_5</zorder>
+  <zorder>lineEdit_6</zorder>
+  <zorder>label_3</zorder>
+  <zorder>lineEdit_7</zorder>
+  <zorder>lineEdit_8</zorder>
+  <zorder>label_4</zorder>
+  <zorder>lineEdit_9</zorder>
+  <zorder>lineEdit_10</zorder>
+  <zorder>label_5</zorder>
+  <zorder>lineEdit_11</zorder>
+  <zorder>lineEdit_12</zorder>
+  <zorder>label_6</zorder>
+  <zorder>label_7</zorder>
+  <zorder>label_8</zorder>
  </widget>
  <resources/>
  <connections>

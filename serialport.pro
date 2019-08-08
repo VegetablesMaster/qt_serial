@@ -46,7 +46,8 @@ FORMS += \
         setlocate.ui
 
 DISTFILES += \
-    TestForm.ui.qml
+    TestForm.ui.qml \
+    jpg/sansi_logo.jpg
 
 RESOURCES += \
     res.qrc

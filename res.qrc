@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/images">
         <file alias="config">jpg/db_init_config.jpg</file>
+        <file>jpg/sansi_logo.jpg</file>
     </qresource>
 </RCC>

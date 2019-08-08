@@ -13,6 +13,53 @@
   <property name="windowTitle">
    <string>三思-毫米波雷达展示程序</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow {    
+	background: white url(:/images/jpg/sansi_logo.jpg);
+    background-repeat: repeat-y;
+    background-position: left;
+}
+
+QLineEdit { 
+	min-width:68px;
+    min-height:28px;
+	background-color: rgb(170, 255, 255);
+	border-color: rgb(22, 83, 150);
+	border: 2px solid rgba(0, 127, 255, 100);
+	font: 14pt &quot;Myanmar Text&quot;;
+	
+}
+QFrame {	
+	background-color: rgba(0, 75, 125, 50);
+}
+
+QLabel{
+	
+
+	min-width:68px;
+    min-height:28px;
+
+    max-height:28px;
+
+	border: 2px solid white;
+	border-radius: 4px;
+	
+	
+	font: 75 14pt &quot;Microsoft JhengHei UI&quot;;
+	text-align: center;
+}
+
+QCheckBox{
+  	max-height:14px;
+}
+
+QPushButton{
+	background-color: rgb(255, 255, 255);
+    min-width:220px;
+    min-height:28px;
+	border-radius: 10px;
+}</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="1">
